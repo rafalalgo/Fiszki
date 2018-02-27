@@ -20,6 +20,7 @@ final public class Database {
     private String DB_NAME;
     private String USER_NAME;
     private String PASSWORD;
+
     /**
      * database to database
      */
@@ -66,5 +67,9 @@ final public class Database {
         } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseException(e);
         }
+    }
+
+    public void check(){
+        System.out.println("OK");
     }
 }
