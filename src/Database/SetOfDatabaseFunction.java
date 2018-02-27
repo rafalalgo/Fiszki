@@ -2,8 +2,10 @@ package Database;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
-public class SetOfDatabaseFunction {
+public class SetOfDatabaseFunction implements DatabaseFunction {
+    @Override
     public boolean createTableForNewUser(String userName) {
         String createTableForNewUser = "CREATE TABLE  "
                 + userName
@@ -15,6 +17,7 @@ public class SetOfDatabaseFunction {
         return true;
     }
 
+    @Override
     public boolean deleteTableAndUser(String userName) {
         String deleteTable = "DROP TABLE IF EXISTS " + userName + ";";
 
@@ -32,5 +35,35 @@ public class SetOfDatabaseFunction {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean addWord(String userName, String language, String foreign, String polish, String state) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteWord(String userName, String language, String foreign) {
+        return false;
+    }
+
+    @Override
+    public boolean changeState(String userName, String language, String foreign) {
+        return false;
+    }
+
+    @Override
+    public List<Word> getUserWords(String userName) {
+        return null;
+    }
+
+    @Override
+    public List<Word> getUserWordsWithLanguage(String userName, String language) {
+        return null;
+    }
+
+    @Override
+    public List<Word> getUserWordWithSpecificState(String userName, int state) {
+        return null;
     }
 }
