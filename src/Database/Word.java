@@ -57,6 +57,10 @@ public class Word {
         this.state = state;
     }
 
+    public void display() {
+        System.out.println(id + " " + polish + " - " + foreign);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
