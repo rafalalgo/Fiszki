@@ -17,5 +17,5 @@ public interface DatabaseFunction {
 
     List<Word> getUserWordsWithLanguage(String userName, String language);
 
-    List<Word> getUserWordsWithState(String userName, int state);
+    List<Word> getUserWordWithSpecificState(String userName, int state);
 }
