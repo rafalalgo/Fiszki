@@ -1,5 +1,9 @@
 package Model;
 
+/**
+ * Created by Jedrzej Hodor on 28.02.18.
+ */
+
 public class MainBody {
     // wybiera usera, pobiera jego baze danych
     // tworzy learning dla tego usera w wybranym przez niego jezyku i odpala

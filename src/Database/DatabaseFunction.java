@@ -7,7 +7,7 @@ public interface DatabaseFunction {
 
     boolean deleteTableAndUser(String userName);
 
-    boolean addWord(String userName, String language, String foreign, String polish, String state);
+    boolean addWord(String userName, String language, String foreign, String polish, int state);
 
     boolean deleteWord(String userName, String language, String foreign);
 

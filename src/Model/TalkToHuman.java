@@ -4,6 +4,10 @@ import Database.Word;
 import java.util.LinkedList;
 import java.util.Random;
 
+/**
+ * Created by Jedrzej Hodor on 28.02.18.
+ */
+
 public class TalkToHuman {
 
     private static String positiveReaction() {

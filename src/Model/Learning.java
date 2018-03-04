@@ -6,6 +6,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Collections;
 
+/**
+ * Created by Jedrzej Hodor on 28.02.18.
+ */
+
 public class Learning {
     private String language;
     private String user;

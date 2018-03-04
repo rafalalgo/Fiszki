@@ -38,8 +38,16 @@ public class SetOfDatabaseFunction implements DatabaseFunction {
     }
 
     @Override
-    public boolean addWord(String userName, String language, String foreign, String polish, String state) {
-        return false;
+    public boolean addWord(String userName, String language, String foreign, String polish, int state) {
+        String createTableForNewUser = "INSERT INTO"
+                + userName
+                + "VALUES (" + 0 + ", " + language + ", " + foreign + ", " + polish + ", " + state + ")";
+                // nie wiem skad wziac numerek, zeby byl kolejny
+
+        if (executeCommand(createTableForNewUser)) return false;
+
+        System.out.println("SUCCESS");
+        return true;
     }
 
     @Override

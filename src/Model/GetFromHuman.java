@@ -2,6 +2,10 @@ package Model;
 
 import java.util.Scanner;
 
+/**
+ * Created by Jedrzej Hodor on 28.02.18.
+ */
+
 public class GetFromHuman {
 
     public static String getString() {
