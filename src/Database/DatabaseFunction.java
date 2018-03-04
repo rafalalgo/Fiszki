@@ -11,7 +11,7 @@ public interface DatabaseFunction {
 
     boolean deleteWord(String userName, String language, String foreign);
 
-    boolean changeState(String userName, String language, String foreign);
+    boolean changeState(String userName, String language, String foreign, int newState);
 
     List<Word> getUserWords(String userName);
 

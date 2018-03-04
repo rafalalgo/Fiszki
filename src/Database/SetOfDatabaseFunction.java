@@ -2,6 +2,7 @@ package Database;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.ResultSet;
 import java.util.List;
 
 public class SetOfDatabaseFunction implements DatabaseFunction {
@@ -39,12 +40,12 @@ public class SetOfDatabaseFunction implements DatabaseFunction {
 
     @Override
     public boolean addWord(String userName, String language, String foreign, String polish, int state) {
-        String createTableForNewUser = "INSERT INTO"
+        String addWord = "INSERT INTO "
                 + userName
-                + "VALUES (" + 0 + ", " + language + ", " + foreign + ", " + polish + ", " + state + ")";
+                + " VALUES (" + 0 + ", " + language + ", " + foreign + ", " + polish + ", " + state + ");";
                 // nie wiem skad wziac numerek, zeby byl kolejny
 
-        if (executeCommand(createTableForNewUser)) return false;
+        if (executeCommand(addWord)) return false;
 
         System.out.println("SUCCESS");
         return true;
@@ -52,12 +53,27 @@ public class SetOfDatabaseFunction implements DatabaseFunction {
 
     @Override
     public boolean deleteWord(String userName, String language, String foreign) {
-        return false;
+        String deleteWord = "DELETE FROM "
+                + userName
+                + " WHERE LANGUAGE = " + language + " AND FOREIGN = " + foreign + ";";
+
+        if (executeCommand(deleteWord)) return false;
+
+        System.out.println("SUCCESS");
+        return true;
     }
 
     @Override
-    public boolean changeState(String userName, String language, String foreign) {
-        return false;
+    public boolean changeState(String userName, String language, String foreign, int newState) {
+        String changeState = "UPDATE "
+                + userName
+                + " SET STATE = " + newState
+                + " WHERE LANGUAGE = " + language + " AND FOREIGN = " + foreign + ";";
+
+        if (executeCommand(changeState)) return false;
+
+        System.out.println("SUCCESS");
+        return true;
     }
 
     @Override
