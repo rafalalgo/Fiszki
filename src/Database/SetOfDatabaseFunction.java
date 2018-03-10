@@ -1,9 +1,11 @@
 package Database;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.ResultSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SetOfDatabaseFunction implements DatabaseFunction {
     @Override
@@ -78,16 +80,40 @@ public class SetOfDatabaseFunction implements DatabaseFunction {
 
     @Override
     public List<Word> getUserWords(String userName) {
-        return null;
+        try (Statement stat = Database.instance.connection.createStatement()) {
+            List<Word> wordList = new LinkedList<>();
+            try {
+                ResultSet resultSet = stat.executeQuery("SELECT FROM " + userName + ";" );
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("id");
+                    String language = resultSet.getString("language");
+                    String foreign = resultSet.getString("foreign");
+                    String polish = resultSet.getString("polish");
+                    int state = resultSet.getInt("state");
+
+                    Word word = new Word(id, language, foreign, polish, state);
+                    wordList.add(word);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            }
+            return wordList;
+        } catch (SQLException e) {
+            System.err.println("FAILURE");
+            return null;
+        }
     }
 
     @Override
     public List<Word> getUserWordsWithLanguage(String userName, String language) {
-        return null;
+        List<Word> listWord = this.getUserWords(userName);
+        return listWord.stream().filter(item -> item.getLanguage() == language).collect(Collectors.toList());
     }
 
     @Override
     public List<Word> getUserWordWithSpecificState(String userName, int state) {
-        return null;
+        List<Word> listWord = this.getUserWords(userName);
+        return listWord.stream().filter(item -> item.getState() == state).collect(Collectors.toList());
     }
 }

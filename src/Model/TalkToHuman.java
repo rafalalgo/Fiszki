@@ -57,6 +57,11 @@ public class TalkToHuman {
         System.out.println("Don't try to fix it yourself!!");
     }
 
+    public static Boolean exit() {
+        System.out.println("Czy chcesz kontynuowac?");
+        return GetFromHuman.getBoolean();
+    }
+
     public static Boolean askQuestion(String language, Integer side, Word word){
         // 0, na polskiej stonie i pytanie o obcy
         // 1, na obcej stronie i pytanie o polski

@@ -1,6 +1,7 @@
 package Model;
 
 import Database.Word;
+import Database.SetOfDatabaseFunction;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,10 +16,10 @@ public class Learning {
     private String user;
     private List<Word> list;
 
-    public Learning(String language, String user, List<Word> list) {
+    public Learning(String user, String language) {
         this.language = language;
         this.user = user;
-        this.list = list;
+        this.list = setList(user, language);
     }
 
     public String getLanguage() {
@@ -37,18 +38,11 @@ public class Learning {
         this.user = user;
     }
 
-
-    private void setList() {
-        //pobiera tabelke usera ze wszystkimi slowami
+    private List<Word> setList(String user, String language) {
+        List<Word> words = new SetOfDatabaseFunction().getUserWordsWithLanguage(user, language);
+        return words;
     }
 
-    private Boolean ifLanguage(Word word) {
-        if(word.getLanguage() == language) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     private Integer checkFirstBox() {
         Integer counter = 0;
@@ -75,14 +69,14 @@ public class Learning {
                 System.out.println("Words, which you can add to your first box: ");
 
                 for (Word word : this.list) {
-                    if ((word.getState() == 0) && (ifLanguage(word)))
+                    if (word.getState() == 0)
                         word.display();
                 }
 
                 System.out.println("Press 1 to choose a word, 0 to decline. Be aware, that your fist box may have less than 30 words. ");
 
                 for (Word word : this.list) {
-                    if ((word.getState() == 0) && (ifLanguage(word)))
+                    if (word.getState() == 0)
                     {
                         if(TalkToHuman.askIfWord(word)) {
                             word.setState(1);
@@ -103,7 +97,7 @@ public class Learning {
     private void doABox(Integer nr) {
         if((nr >= 1 && nr <= 6) || nr == 9 || nr == 12) {
             for(Word word : this.list) {
-                if(this.ifLanguage(word) && word.getState() == nr) {
+                if(word.getState() == nr) {
                     if(TalkToHuman.askQuestion(this.language, nr % 2, word)) {
                         word.setState(nr + 1);
                     }
@@ -111,7 +105,7 @@ public class Learning {
             }
         } else if (nr == 7 || nr == 8 || nr == 10 || nr == 11) {
             for(Word word : this.list) {
-                if(this.ifLanguage(word) && word.getState() == nr) {
+                if(word.getState() == nr) {
                     word.setState(nr + 1);
                 }
             }
@@ -123,7 +117,7 @@ public class Learning {
     private void extraRound() {
         LinkedList<Word> boxThirteen = new LinkedList<>();
         for(Word word : list) {
-            if(this.ifLanguage(word) && word.getState() == 13) {
+            if(word.getState() == 13) {
                 boxThirteen.add(word);
             }
         }
