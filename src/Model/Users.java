@@ -8,18 +8,19 @@ import java.util.List;
  */
 
 public class Users {
+
     private static List<Pair> users;
 
-    public static void addUsers(String user, String password) {
-        Pair pair = new Pair(user, password);
-        users.add(pair);
-    }
-
-    public static void constructor() {
+    public Users() {
         users = new LinkedList<>();
         addUsers("Jedrzej", "a");
         addUsers("Rafal", "a");
         addUsers("Edyta", "a");
+    }
+
+    public static void addUsers(String user, String password) {
+        Pair pair = new Pair(user, password);
+        users.add(pair);
     }
 
     public static Boolean check(String notSure) {

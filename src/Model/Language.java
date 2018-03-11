@@ -11,15 +11,15 @@ public class Language {
 
     private static List<String> possible;
 
-    public static void addPossibleLanguages(String poss) {
-        possible.add(poss);
-    }
-
-    public static void constructor() {
+    public Language() {
         possible = new LinkedList<>();
         possible.add("eng");
         possible.add("deu");
         possible.add("esp");
+    }
+
+    public static void addPossibleLanguages(String poss) {
+        possible.add(poss);
     }
 
     public static Boolean check(String notSure) {
