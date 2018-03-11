@@ -12,7 +12,7 @@ public class SetOfDatabaseFunction implements DatabaseFunction {
     public boolean createTableForNewUser(String userName) {
         String createTableForNewUser = "CREATE TABLE  "
                 + userName
-                + " (id int PRIMARY KEY, lg VARCHAR(255), fg VARCHAR(255), pl VARCHAR(255), state int)";
+                + " (id SERIAL PRIMARY KEY, lg VARCHAR(255), fg VARCHAR(255), pl VARCHAR(255), state int)";
 
         if (executeCommand(createTableForNewUser)) return false;
 
@@ -44,7 +44,8 @@ public class SetOfDatabaseFunction implements DatabaseFunction {
     public boolean addWord(String userName, String language, String foreign, String polish, int state) {
         String addWord = "INSERT INTO "
                 + userName
-                + " VALUES (" + 0 + ", " + language + ", " + foreign + ", " + polish + ", " + state + ");";
+                + " (lg, fg, pl, state) "
+                + " VALUES ( '" + language + "', '" + foreign + "', '" + polish + "', " + state + " );";
                 // nie wiem skad wziac numerek, zeby byl kolejny
 
         if (executeCommand(addWord)) return false;
@@ -57,7 +58,7 @@ public class SetOfDatabaseFunction implements DatabaseFunction {
     public boolean deleteWord(String userName, String language, String foreign) {
         String deleteWord = "DELETE FROM "
                 + userName
-                + " WHERE LANGUAGE = " + language + " AND FOREIGN = " + foreign + ";";
+                + " WHERE lg = '" + language + "' AND fg = '" + foreign + "';";
 
         if (executeCommand(deleteWord)) return false;
 
@@ -70,7 +71,7 @@ public class SetOfDatabaseFunction implements DatabaseFunction {
         String changeState = "UPDATE "
                 + userName
                 + " SET STATE = " + newState
-                + " WHERE LANGUAGE = " + language + " AND FOREIGN = " + foreign + ";";
+                + " WHERE lg = '" + language + "' AND fg = '" + foreign + "';";
 
         if (executeCommand(changeState)) return false;
 
@@ -86,9 +87,9 @@ public class SetOfDatabaseFunction implements DatabaseFunction {
                 ResultSet resultSet = stat.executeQuery("SELECT FROM " + userName + ";" );
                 while (resultSet.next()) {
                     int id = resultSet.getInt("id");
-                    String language = resultSet.getString("language");
-                    String foreign = resultSet.getString("foreign");
-                    String polish = resultSet.getString("polish");
+                    String language = resultSet.getString("lg");
+                    String foreign = resultSet.getString("fg");
+                    String polish = resultSet.getString("pl");
                     int state = resultSet.getInt("state");
 
                     Word word = new Word(id, language, foreign, polish, state);

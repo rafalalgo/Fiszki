@@ -9,10 +9,10 @@ import Database.SetOfDatabaseFunction;
 public class MainBody {
     public static void main(String[] args) {
 
-        Boolean stop = true;
-        Language.constructor();
         Users.constructor();
+        Language.constructor();
 
+        Boolean stop = true;
         while(stop) {
             System.out.println("Witaj w naszej super aplikacji!!");
             System.out.println("Czuj sie jak u siebie w domu hihi");
@@ -53,7 +53,4 @@ public class MainBody {
         }
         System.out.println("Do zoabczenia ponownie!");
     }
-
-
-
 }

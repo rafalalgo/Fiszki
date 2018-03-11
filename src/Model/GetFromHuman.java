@@ -10,7 +10,7 @@ public class GetFromHuman {
 
     public static String getString() {
         Scanner sc = new Scanner(System.in);
-        return sc.next();
+        return sc.nextLine();
     }
 
     public static Boolean getBoolean() {

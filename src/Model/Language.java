@@ -11,7 +11,7 @@ public class Language {
 
     private static List<String> possible;
 
-    public Language() {
+    public static void constructor() {
         possible = new LinkedList<>();
         possible.add("eng");
         possible.add("deu");

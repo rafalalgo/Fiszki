@@ -184,14 +184,16 @@ public class UserInterface {
             } else {
                 System.out.println("Foreign:");
                 foreign = GetFromHuman.getString();
-                if (foreign.equals("-1"))
+                if (foreign.equals("-1")) {
                     stop = false;
-
+                    break;
+                }
                 System.out.println("Polish:");
                 polish = GetFromHuman.getString();
-                if (polish.equals("-1"))
+                if (polish.equals("-1")) {
                     stop = false;
-
+                    break;
+                }
                 System.out.println("Czy na pewno chcesz dodac slowo?");
                 System.out.println(language + ", " + foreign + ", " + polish);
                 if (GetFromHuman.getBoolean()) {
@@ -209,14 +211,16 @@ public class UserInterface {
         while (stop) {
             System.out.println("Foreign:");
             foreign = GetFromHuman.getString();
-            if (foreign.equals("-1"))
+            if (foreign.equals("-1")) {
                 stop = false;
-
+                break;
+            }
             System.out.println("Polish:");
             polish = GetFromHuman.getString();
-            if (polish.equals("-1"))
+            if (polish.equals("-1")) {
                 stop = false;
-
+                break;
+            }
             System.out.println("Czy na pewno chcesz dodac slowo?");
             System.out.println(language + ", " + foreign + ", " + polish);
             if (GetFromHuman.getBoolean()) {
