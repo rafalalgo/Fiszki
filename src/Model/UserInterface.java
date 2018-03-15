@@ -37,6 +37,13 @@ public class UserInterface {
         return f.getUserWordsWithLanguage(userName, language);
     }
 
+    private Boolean checkLanguage(String check) {
+        List<String> languages = new SetOfDatabaseFunction().getLanguages();
+        languages.add("all");
+
+        return !languages.contains(check);
+    }
+
     private Boolean checkIfHave(Word word) {
         for (Word w: this.words) {
             if(word.equals(w)) {
@@ -57,6 +64,7 @@ public class UserInterface {
 
 
     public Boolean use() {
+        this.setWords();
         System.out.println("Co mozemy dla ciebie zrobic?");
         System.out.println("1 - uczenie sie");
         System.out.println("2 - importuj slowa");
@@ -78,7 +86,7 @@ public class UserInterface {
                 if(language.equals("all")) {
                     this.twoSixAll(dec);
                     ok = false;
-                } else if(Language.check(language)) {
+                } else if(this.checkLanguage(language)) {
                     this.twoSixLang(dec, language);
                     ok = false;
                 } else if(language.equals("-1")){
@@ -101,8 +109,9 @@ public class UserInterface {
         Boolean ok = true;
         while(ok) {
             String lang = GetFromHuman.getString();
-            if(true /*sprawdzamy, czy to faktycznie jest jakis jezyk*/) {
+            if(this.checkLanguage(lang)) {
                 Learning learning = new Learning(this.userName, lang);
+                learning.learning();
                 ok = false;
             } else if(lang.equals("-1")){
                 ok = false;
@@ -179,7 +188,7 @@ public class UserInterface {
         while (stop) {
             System.out.println("Language:");
             language = GetFromHuman.getString();
-            if (!Language.check(language)) {
+            if (this.checkLanguage(language)) {
                 stop = false;
             } else {
                 System.out.println("Foreign:");
@@ -229,4 +238,5 @@ public class UserInterface {
             }
         }
     }
+
 }

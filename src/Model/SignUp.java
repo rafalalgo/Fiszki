@@ -1,6 +1,10 @@
 package Model;
 
 import Database.SetOfDatabaseFunction;
+import Database.Word;
+import jdk.internal.util.xml.impl.Pair;
+
+import java.util.List;
 
 /**
  * Created by Jedrzej Hodor on 10.03.18.
@@ -34,9 +38,13 @@ public class SignUp {
 
 
 
-    private Boolean checkUserName(String name) {
-        // trzeba zrobic [nie mozna "Admin"]
-        return true;
+    private Boolean checkUserName(String check) {
+        List<String> users = new SetOfDatabaseFunction().getUserNames();
+        users.add("Admin");
+        users.add("Languages");
+        users.add("Users");
+
+        return users.contains(check);
     }
 
     private Boolean setUser() {
@@ -46,7 +54,7 @@ public class SignUp {
             String name = GetFromHuman.getString();
             if(name.equals("-1")) {
                 stop = false;
-            } else if(!this.checkUserName(name)) {
+            } else if(this.checkUserName(name)) {
                 System.out.println("Nazwa zajeta! Sprobuj ponownie");
             } else {
                 this.setUserName(name);

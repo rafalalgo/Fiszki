@@ -1,5 +1,6 @@
 package Database;
 
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -12,7 +13,7 @@ public class SetOfDatabaseFunction implements DatabaseFunction {
     public boolean createTableForNewUser(String userName) {
         String createTableForNewUser = "CREATE TABLE  "
                 + userName
-                + " (id SERIAL PRIMARY KEY, lg VARCHAR(255), fg VARCHAR(255), pl VARCHAR(255), state int)";
+                + " (id int, lg VARCHAR(255), fg VARCHAR(255), pl VARCHAR(255), state int)";
 
         if (executeCommand(createTableForNewUser)) return false;
 
@@ -44,8 +45,7 @@ public class SetOfDatabaseFunction implements DatabaseFunction {
     public boolean addWord(String userName, String language, String foreign, String polish, int state) {
         String addWord = "INSERT INTO "
                 + userName
-                + " (lg, fg, pl, state) "
-                + " VALUES ( '" + language + "', '" + foreign + "', '" + polish + "', " + state + " );";
+                + " VALUES ( " + 0 + ", '" + language + "', '" + foreign + "', '" + polish + "', " + state + " );";
                 // nie wiem skad wziac numerek, zeby byl kolejny
 
         if (executeCommand(addWord)) return false;
@@ -116,5 +116,100 @@ public class SetOfDatabaseFunction implements DatabaseFunction {
     public List<Word> getUserWordWithSpecificState(String userName, int state) {
         List<Word> listWord = this.getUserWords(userName);
         return listWord.stream().filter(item -> item.getState() == state).collect(Collectors.toList());
+    }
+
+
+
+    @Override
+    public boolean createTableLanguages(){
+        String createTableForNewUser = "CREATE TABLE  "
+                + "Languages"
+                + " (id int, lang VARCHAR(255))";
+
+        if (executeCommand(createTableForNewUser)) return false;
+
+        System.out.println("SUCCESS");
+        return true;
+    }
+
+    @Override
+    public boolean addLanguage(String language){
+        String addWord = "INSERT INTO "
+                + "Languages"
+                + " VALUES ( " + 0 + ", '" + language + "')";
+
+        if (executeCommand(addWord)) return false;
+
+        System.out.println("SUCCESS");
+        return true;
+    }
+
+    @Override
+    public boolean deleteLanguage(String language){
+        String addWord = "DELETE FROM "
+                + "Languages"
+                + " WHERE lang = '" + language + "'";
+
+        if (executeCommand(addWord)) return false;
+
+        System.out.println("SUCCESS");
+        return true;
+    }
+
+    @Override
+    public List<String> getLanguages(){
+        // nie chce znowu pisac zle xd
+        // najlepiej zrzutowac do pojedynczego stringa, zeby nie komplikowac
+        return null;
+    }
+
+
+    @Override
+    public boolean createTableUsers(){
+        String createTableForNewUser = "CREATE TABLE  "
+                + "Users"
+                + " (id int, name VARCHAR(255), password VARCHAR(255))";
+
+        if (executeCommand(createTableForNewUser)) return false;
+
+        System.out.println("SUCCESS");
+        return true;
+    }
+
+    @Override
+    public boolean addUser(String name, String password){
+        String addWord = "INSERT INTO "
+                + "Users"
+                + " VALUES ( " + 0 + ", '" + name + ", '" + password + "')";
+
+        if (executeCommand(addWord)) return false;
+
+        System.out.println("SUCCESS");
+        return true;
+    }
+
+    @Override
+    public boolean deleteUser(String name){
+        String addWord = "DELETE FROM "
+                + "Languages"
+                + " WHERE name = '" + name + "'";
+
+        if (executeCommand(addWord)) return false;
+
+        System.out.println("SUCCESS");
+        return true;
+    }
+
+    @Override
+    public List<Model.Pair> getUsers(){
+        // nie chce znowu pisac zle xd
+        // najlepiej to zrzutowac do par, chyba, ze sztuka wymaga inaczej, zeby haslo bylo bezpieczne xd
+        return null;
+    }
+
+    @Override
+    public List<String> getUserNames(){
+        // nie chce znowu pisac zle xd
+        return null;
     }
 }

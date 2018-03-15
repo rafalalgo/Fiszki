@@ -1,5 +1,7 @@
 package Database;
 
+import jdk.internal.util.xml.impl.Pair;
+
 import java.util.List;
 
 public interface DatabaseFunction {
@@ -18,4 +20,24 @@ public interface DatabaseFunction {
     List<Word> getUserWordsWithLanguage(String userName, String language);
 
     List<Word> getUserWordWithSpecificState(String userName, int state);
+
+
+    boolean createTableLanguages();
+
+    boolean addLanguage(String language);
+
+    boolean deleteLanguage(String language);
+
+    List<String> getLanguages();
+
+
+    boolean createTableUsers();
+
+    boolean addUser(String name, String password);
+
+    boolean deleteUser(String name);
+
+    List<Model.Pair> getUsers();
+
+    List<String> getUserNames();
 }

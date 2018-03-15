@@ -38,4 +38,16 @@ public class GetFromHuman {
             }
         }
     }
+
+    public static Integer getSpecialSecretInt(int from, int to) {
+        Scanner sc = new Scanner(System.in);
+        while(true){
+            Integer input = sc.nextInt();
+            if((from <= input && input <= to) || input == 69) {
+                return input;
+            } else {
+                System.out.println("To nie jest odpowiedz");
+            }
+        }
+    }
 }
