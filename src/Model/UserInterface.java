@@ -38,10 +38,13 @@ public class UserInterface {
     }
 
     private Boolean checkLanguage(String check) {
+        /*
         List<String> languages = new SetOfDatabaseFunction().getLanguages();
         languages.add("all");
 
         return !languages.contains(check);
+        */
+        return false;
     }
 
     private Boolean checkIfHave(Word word) {

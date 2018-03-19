@@ -1,6 +1,8 @@
 package Database;
 
 
+import Model.Pair;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -84,7 +86,7 @@ public class SetOfDatabaseFunction implements DatabaseFunction {
         try (Statement stat = Database.instance.connection.createStatement()) {
             List<Word> wordList = new LinkedList<>();
             try {
-                ResultSet resultSet = stat.executeQuery("SELECT FROM " + userName + ";" );
+                ResultSet resultSet = stat.executeQuery("SELECT * FROM " + userName + ";" );
                 while (resultSet.next()) {
                     int id = resultSet.getInt("id");
                     String language = resultSet.getString("lg");
@@ -158,9 +160,24 @@ public class SetOfDatabaseFunction implements DatabaseFunction {
 
     @Override
     public List<String> getLanguages(){
-        // nie chce znowu pisac zle xd
-        // najlepiej zrzutowac do pojedynczego stringa, zeby nie komplikowac
-        return null;
+        try (Statement stat = Database.instance.connection.createStatement()) {
+            List<String> languages = new LinkedList<>();
+            try {
+                ResultSet resultSet = stat.executeQuery("SELECT * FROM " + "Languages" + ";" );
+                while (resultSet.next()) {
+                    String language = resultSet.getString("lang");
+
+                    languages.add(language);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            }
+            return languages;
+        } catch (SQLException e) {
+            System.err.println("FAILURE");
+            return null;
+        }
     }
 
 
@@ -202,14 +219,35 @@ public class SetOfDatabaseFunction implements DatabaseFunction {
 
     @Override
     public List<Model.Pair> getUsers(){
-        // nie chce znowu pisac zle xd
-        // najlepiej to zrzutowac do par, chyba, ze sztuka wymaga inaczej, zeby haslo bylo bezpieczne xd
-        return null;
+        try (Statement stat = Database.instance.connection.createStatement()) {
+            List<Pair> users = new LinkedList<>();
+            try {
+                ResultSet resultSet = stat.executeQuery("SELECT * FROM " + "Users" + ";" );
+                while (resultSet.next()) {
+                    String name = resultSet.getString("name");
+                    String password = resultSet.getString("password");
+
+                    Pair<String, String> user = new Pair<>(name, password);
+                    users.add(user);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            }
+            return users;
+        } catch (SQLException e) {
+            System.err.println("FAILURE");
+            return null;
+        }
     }
 
     @Override
     public List<String> getUserNames(){
-        // nie chce znowu pisac zle xd
-        return null;
+        List<Pair> users = this.getUsers();
+        List<String> names = new LinkedList<>();
+        for(Pair user : users) {
+            names.add((user.getFirst()).toString());
+        }
+        return names;
     }
 }
