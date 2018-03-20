@@ -21,6 +21,8 @@ public interface DatabaseFunction {
 
     List<Word> getUserWordWithSpecificState(String userName, int state);
 
+    List<Word> getUserWordWithSpecificStateAndLanguage(String userName, String language, int state);
+
 
     boolean createTableLanguages();
 

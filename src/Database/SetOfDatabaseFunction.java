@@ -111,12 +111,18 @@ public class SetOfDatabaseFunction implements DatabaseFunction {
     @Override
     public List<Word> getUserWordsWithLanguage(String userName, String language) {
         List<Word> listWord = this.getUserWords(userName);
-        return listWord.stream().filter(item -> item.getLanguage() == language).collect(Collectors.toList());
+        return listWord.stream().filter(item -> (item.getLanguage()).equals(language)).collect(Collectors.toList());
     }
 
     @Override
     public List<Word> getUserWordWithSpecificState(String userName, int state) {
         List<Word> listWord = this.getUserWords(userName);
+        return listWord.stream().filter(item -> item.getState() == state).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Word> getUserWordWithSpecificStateAndLanguage(String userName, String language, int state) {
+        List<Word> listWord = this.getUserWordsWithLanguage(userName, language);
         return listWord.stream().filter(item -> item.getState() == state).collect(Collectors.toList());
     }
 

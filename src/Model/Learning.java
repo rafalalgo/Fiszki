@@ -15,11 +15,15 @@ public class Learning {
     private String language;
     private String user;
     private List<Word> list;
+    private List<List<Word>> superList;
+    private SetOfDatabaseFunction setOfDatabaseFunction;
 
     public Learning(String user, String language) {
         this.language = language;
         this.user = user;
+        this.setOfDatabaseFunction = new SetOfDatabaseFunction();
         this.list = setList(user, language);
+        this.superList = setSuperList(user, language);
     }
 
     public String getLanguage() {
@@ -39,8 +43,16 @@ public class Learning {
     }
 
     private List<Word> setList(String user, String language) {
-        List<Word> words = new SetOfDatabaseFunction().getUserWordsWithLanguage(user, language);
-        return words;
+        return this.setOfDatabaseFunction.getUserWordsWithLanguage(user, language);
+    }
+
+    private List<List<Word>> setSuperList(String user, String language) {
+        List<List<Word>> superList = new LinkedList<>();
+        for(int i = 0; i <= 13; i++) {
+            List<Word> list = this.setOfDatabaseFunction.getUserWordWithSpecificStateAndLanguage(user, language, i);
+            superList.add(list);
+        }
+        return superList;
     }
 
 
@@ -79,7 +91,7 @@ public class Learning {
                     if (word.getState() == 0)
                     {
                         if(TalkToHuman.askIfWord(word)) {
-                            word.setState(1);
+                            setOfDatabaseFunction.changeState(this.user, this.language, word.getForeign(), 1);
                         }
                     }
                 }
@@ -96,18 +108,14 @@ public class Learning {
 
     private void doABox(Integer nr) {
         if((nr >= 1 && nr <= 6) || nr == 9 || nr == 12) {
-            for(Word word : this.list) {
-                if(word.getState() == nr) {
-                    if(TalkToHuman.askQuestion(this.language, nr % 2, word)) {
-                        word.setState(nr + 1);
-                    }
+            for(Word word : this.superList.get(nr)) {
+                if(TalkToHuman.askQuestion(this.language, nr % 2, word)) {
+                    setOfDatabaseFunction.changeState(this.user, this.language, word.getForeign(), nr + 1);;
                 }
             }
         } else if (nr == 7 || nr == 8 || nr == 10 || nr == 11) {
-            for(Word word : this.list) {
-                if(word.getState() == nr) {
-                    word.setState(nr + 1);
-                }
+            for(Word word : this.superList.get(nr)) {
+                setOfDatabaseFunction.changeState(this.user, this.language, word.getForeign(), nr + 1);
             }
         } else {
             TalkToHuman.fatalError();
@@ -115,18 +123,14 @@ public class Learning {
     }
 
     private void extraRound() {
-        LinkedList<Word> boxThirteen = new LinkedList<>();
-        for(Word word : list) {
-            if(word.getState() == 13) {
-                boxThirteen.add(word);
-            }
-        }
+        List<Word> boxThirteen = this.superList.get(13);
         Collections.shuffle(boxThirteen);
 
         Integer how_many = Math.max(10, boxThirteen.size());
         for(int i = 0; i < how_many; i++) {
             if(!TalkToHuman.askQuestion(this.language, i % 2, boxThirteen.get(i))) {
-                (boxThirteen.get(i)).setState(2);
+                Word word = boxThirteen.get(i);
+                setOfDatabaseFunction.changeState(this.user, this.language, word.getForeign(), 2);
             }
         }
     }

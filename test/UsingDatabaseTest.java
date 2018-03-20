@@ -3,10 +3,13 @@ import Model.UserInterface;
 
 public class UsingDatabaseTest {
     public static void main(String[] args) {
-        String user = "JJ";
-        new SetOfDatabaseFunction().createTableForNewUser(user);
-        UserInterface userInterface = new UserInterface(user);
+        String userName = "JJ";
+        //new SetOfDatabaseFunction().createTableForNewUser(userName);
+        UserInterface userInterface = new UserInterface(userName);
+
+        //SetOfDatabaseFunction setOfDatabaseFunction = new SetOfDatabaseFunction();
+
         while(userInterface.use());
-        new SetOfDatabaseFunction().deleteTableAndUser(user);
+        new SetOfDatabaseFunction().deleteTableAndUser(userName);
     }
 }

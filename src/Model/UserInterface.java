@@ -44,7 +44,7 @@ public class UserInterface {
 
         return !languages.contains(check);
         */
-        return false;
+        return true;
     }
 
     private Boolean checkIfHave(Word word) {
@@ -191,7 +191,7 @@ public class UserInterface {
         while (stop) {
             System.out.println("Language:");
             language = GetFromHuman.getString();
-            if (this.checkLanguage(language)) {
+            if (!this.checkLanguage(language)) {
                 stop = false;
             } else {
                 System.out.println("Foreign:");

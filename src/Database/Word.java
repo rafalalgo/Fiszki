@@ -58,7 +58,7 @@ public class Word {
     }
 
     public void display() {
-        System.out.println(id + " " + polish + " - " + foreign);
+        System.out.println(language + " " + polish + " - " + foreign);
     }
 
     @Override
