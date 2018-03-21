@@ -12,17 +12,27 @@ public class TalkToHuman {
 
     private static String positiveReaction() {
         LinkedList<String> list = new LinkedList<>();
-        list.add("Fantastic!");
-        list.add("Brilliant!");
-        list.add("Good!");
-        list.add("GJ!");
-        list.add("Legendary!");
-        list.add("Godlike!");
-        list.add("Nice!");
-        list.add("Yeah!!!");
-        list.add("Impressive!");
-        list.add("Unbelievable!");
-        list.add(":D");
+        list.add("Molto bene!"); //italian
+        list.add("¡Bien hecho!"); //spanish
+        list.add("Well done!"); //english
+        list.add("Bra gjort!"); //swedish
+        list.add("Bone farita!"); //esperanto
+        list.add("Gut gemacht!"); //german
+        list.add("Bien joué!"); //french
+        list.add("Dobra robota!"); //polish
+        list.add("Bene factum!"); //latin
+        list.add("Bem feito!"); //portuguese
+        list.add("Umefanya vizuri!"); //swahilli
+        list.add("Szép munka!"); //hungarian
+        list.add("Добро урађено!"); //serbian
+        list.add("Отлично сработано!"); //russian
+        list.add("أحسنت!"); //arabic
+        list.add("Labi padarīts!"); //latvian
+        list.add("კარგად გაკეთდეს!"); //georgian
+        list.add("Լավ արեց!"); //armenian
+        list.add("Wel gedaan!"); //afrikaans
+        list.add("Výborně!"); //czech
+        list.add("Μπράβο!"); //greek
         return list.get(new Random().nextInt(list.size()));
      }
 
@@ -49,6 +59,7 @@ public class TalkToHuman {
         list.add("սխալ է..."); //armenian
         list.add("Verkeerde..."); //afrikaans
         list.add("špatně..."); //czech
+        list.add("Λανθασμένος..."); //greek
         return list.get(new Random().nextInt(list.size()));
     }
 
@@ -82,6 +93,7 @@ public class TalkToHuman {
             System.out.println(positiveReaction());
             return true;
         } else {
+            System.out.println("Right answer is: " + right);
             System.out.println("What do you recon? Are you right?");
             System.out.println("1 = YES, 0 = NO");
             Boolean if_right = GetFromHuman.getBoolean();

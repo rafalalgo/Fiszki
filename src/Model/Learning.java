@@ -76,23 +76,21 @@ public class Learning {
     private void addToFirstBox() {
         Integer missing = this.checkFirstBox();
         Boolean stop = true;
+        List<Word> boxZ = this.superList.get(0);
+
         while(stop) {
             if(missing > 0) {
                 System.out.println("Words, which you can add to your first box: ");
 
-                for (Word word : this.list) {
-                    if (word.getState() == 0)
-                        word.display();
+                for (Word word : boxZ) {
+                    word.display();
                 }
 
                 System.out.println("Press 1 to choose a word, 0 to decline. Be aware, that your fist box may have less than 30 words. ");
 
-                for (Word word : this.list) {
-                    if (word.getState() == 0)
-                    {
-                        if(TalkToHuman.askIfWord(word)) {
-                            setOfDatabaseFunction.changeState(this.user, this.language, word.getForeign(), 1);
-                        }
+                for (Word word : boxZ) {
+                    if(TalkToHuman.askIfWord(word)) {
+                        setOfDatabaseFunction.changeState(this.user, this.language, word.getForeign(), 1);
                     }
                 }
             }
@@ -126,7 +124,7 @@ public class Learning {
         List<Word> boxThirteen = this.superList.get(13);
         Collections.shuffle(boxThirteen);
 
-        Integer how_many = Math.max(10, boxThirteen.size());
+        Integer how_many = Math.min(10, boxThirteen.size());
         for(int i = 0; i < how_many; i++) {
             if(!TalkToHuman.askQuestion(this.language, i % 2, boxThirteen.get(i))) {
                 Word word = boxThirteen.get(i);
@@ -138,9 +136,15 @@ public class Learning {
 
     public void learning() {
         this.addToFirstBox();
+        this.superList = setSuperList(user, language);
         for(int i = 1; i <= 12; i++) {
+            System.out.println("Box number: " + i);
             this.doABox(i);
+            System.out.println("DONE");
         }
+        System.out.println("Extra round:");
         this.extraRound();
+        System.out.println("ALL DONE!");
+        System.out.println("Keep it this way!!!");
     }
 }

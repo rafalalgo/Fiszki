@@ -45,6 +45,15 @@ public class SetOfDatabaseFunction implements DatabaseFunction {
 
     @Override
     public boolean addWord(String userName, String language, String foreign, String polish, int state) {
+        List<Word> words = this.getUserWords(userName);
+        Word word = new Word(0, language, foreign, polish, state);
+        for(Word w : words) {
+            if(word.equals2(w)) {
+                System.out.println("FAILURE");
+                return false;
+            }
+        }
+
         String addWord = "INSERT INTO "
                 + userName
                 + " VALUES ( " + 0 + ", '" + language + "', '" + foreign + "', '" + polish + "', " + state + " );";
@@ -142,6 +151,13 @@ public class SetOfDatabaseFunction implements DatabaseFunction {
 
     @Override
     public boolean addLanguage(String language){
+        List<String> langs = this.getLanguages();
+        for(String l : langs) {
+            if(language.equals(l)) {
+                System.out.println("FAILURE");
+                return false;
+            }
+        }
         String addWord = "INSERT INTO "
                 + "Languages"
                 + " VALUES ( " + 0 + ", '" + language + "')";

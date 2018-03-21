@@ -58,7 +58,16 @@ public class Word {
     }
 
     public void display() {
-        System.out.println(language + " " + polish + " - " + foreign);
+        System.out.println(language + " " + foreign + " - " + polish);
+    }
+
+    public boolean equals2(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Word word = (Word) o;
+        return  Objects.equals(language, word.language) &&
+                Objects.equals(foreign, word.foreign) &&
+                Objects.equals(polish, word.polish);
     }
 
     @Override

@@ -50,10 +50,10 @@ public class UserInterface {
     private Boolean checkIfHave(Word word) {
         for (Word w: this.words) {
             if(word.equals(w)) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     private List<Word> importWordsAll() {
