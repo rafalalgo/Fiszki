@@ -1,12 +1,11 @@
 import Database.SetOfDatabaseFunction;
-import Model.UserInterface;
+import Model.UserInterface.UserInterfaceController;
 
 public class UsingDatabaseTest {
     public static void main(String[] args) {
         SetOfDatabaseFunction setOfDatabaseFunction = new SetOfDatabaseFunction();
         String userName = "JJ";
         setOfDatabaseFunction.createTableForNewUser(userName);
-
         setOfDatabaseFunction.createTableForNewUser("Admin");
 
         setOfDatabaseFunction.addWord(userName, "eng", "inconspicuous", "niepozorny", 1);
@@ -120,8 +119,8 @@ public class UsingDatabaseTest {
         setOfDatabaseFunction.addWord(userName, "eng", "a billow", "kłąb (dymu)", 13);
         setOfDatabaseFunction.addWord(userName, "eng", "to skimp", "skąpić", 13);
 
-        UserInterface userInterface = new UserInterface(userName);
-        while(userInterface.use());
+        UserInterfaceController userInterfaceController = new UserInterfaceController(userName);
+        while(userInterfaceController.use());
 
 
         setOfDatabaseFunction.deleteTableAndUser(userName);

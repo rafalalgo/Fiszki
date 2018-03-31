@@ -1,10 +1,10 @@
-package Model;
+package Model.MainBody;
 
 /**
  * Created by Jedrzej Hodor on 28.02.18.
  */
 
-public class MainBody {
+public class MainBodyController {
     public static void main(String[] args) {
 
         //first set up:
@@ -13,6 +13,7 @@ public class MainBody {
         //new SetOfDatabaseFunction().createTableLanguages();
         //new SetOfDatabaseFunction().createTableUsers();
 
+        /*
         Boolean stop = true;
         while(stop) {
             System.out.println("Witaj w naszej super aplikacji!!");
@@ -37,7 +38,7 @@ public class MainBody {
                 String name = GetFromHuman.getString();
                 SignIn signIn = new SignIn();
                 if (signIn.signIn(name)) {
-                    UserInterface userinterface = new UserInterface(name);
+                    UserInterfaceController userinterface = new UserInterfaceController(name);
                     while (userinterface.use()) {
                     }
                     stop = TalkToHuman.exit();
@@ -53,5 +54,9 @@ public class MainBody {
             }
         }
         System.out.println("Do zoabczenia ponownie!");
+        */
+
+
+
     }
 }
